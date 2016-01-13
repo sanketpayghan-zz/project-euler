@@ -27,3 +27,18 @@ class Utils(object):
         if num == Utils.reverse(num):
             return True
         return False
+
+    @classmethod
+    def prime_sieve(cls, limit):
+        sieve = [True] * int(limit)
+        sieve[0], sieve[1] = [None] * 2
+        counter = 0
+        for i, v in enumerate(sieve):
+            if not v:
+                continue
+            sieve[i ** 2::i] = ([False] *
+                                ((limit - 1) / i - (i - 1)))
+            counter += 1
+        # 1 is neither prime nor composite, 2 is prime
+        sieve[0], sieve[1] = (False, False)
+        return sieve
